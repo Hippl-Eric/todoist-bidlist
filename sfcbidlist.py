@@ -15,7 +15,8 @@ task_path = f"{path}tasks"
 api_header = {"Authorization": "Bearer %s" % API_KEY}
 
 def main():
-    bid_list()
+    sorted_list = bid_list()
+    json_list = tasksJSON(sorted_list)
 
 def bid_list():
     """
@@ -57,6 +58,21 @@ def bid_list():
     # Sort and return bid_tasks
     bid_tasks_sorted = quicksort(bid_tasks)
     return bid_tasks_sorted
+
+def tasksJSON(task_list):
+    """
+    Organize a sorted list of tasks into Parent/Children
+    Return in JSON    
+    """
+    obj_list = []
+    for task in task_list:
+        obj = {"task": task, "sub_tasks": []}
+        obj_list.append(obj)
+    
+    json_list = []
+    json_list.append(task_list[0])
+    parent_id = task_list[0]
+    return obj_list
 
 def request_api(url, params=None):
     try:
