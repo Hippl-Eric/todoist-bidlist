@@ -7,7 +7,7 @@ def main():
     # Simple print for now
     sfc_bids = bid_list()
     for task in sfc_bids:
-        print(task["content"])
+        print(f"{task['order']}: id={task['id']}, par_id={task.get('parent_id')}, {task['content']}")
 
 # MS Word Document
 def numbered_list(arr):

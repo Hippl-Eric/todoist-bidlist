@@ -2,6 +2,7 @@ import os
 import requests
 from dotenv import load_dotenv
 from todoist.api import TodoistAPI
+from classes import Task, JSON_List
 
 # Load API Key
 load_dotenv()
@@ -64,15 +65,12 @@ def tasksJSON(task_list):
     Organize a sorted list of tasks into Parent/Children
     Return in JSON    
     """
-    obj_list = []
+   
+    json_list = JSON_List()
     for task in task_list:
-        obj = {"task": task, "sub_tasks": []}
-        obj_list.append(obj)
-    
-    json_list = []
-    json_list.append(task_list[0])
-    parent_id = task_list[0]
-    return obj_list
+        json_list.insert_task_unsort(task)
+
+    return json_list
 
 def request_api(url, params=None):
     try:
