@@ -1,23 +1,27 @@
 from sfcbidlist import bid_list
-from docx import Document
-# https://python-docx.readthedocs.io/en/latest/
 
-def main():
-
-    # Simple print for now
+# Simple print to terminal
+def simple_print():
     sfc_bids = bid_list()
     for task in sfc_bids:
         print(f"{task['order']}: id={task['id']}, par_id={task.get('parent_id')}, {task['content']}")
 
-# MS Word Document
-def numbered_list(arr):
-    doc = Document()
-    doc.add_paragraph('first item in ordered list', style='List Number')
-    doc.add_paragraph('second item in ordered list', style='List Number')
-    doc.save("test.docx")
+# Return HTML ordered list with subtasks as un-ordered list
+def printHTML(tasks):
+    output = "<div>Upcoming Bids:<br><ol>"
 
-# MS Outlook
-# https://www.youtube.com/watch?v=ZvmFHwAjXHI&feature=youtu.be
+    for task in tasks:
+        output += "<li>"
+        output += task.val["content"]
+        if task.sub_tasks:
+            output += "<ul>"
+            for sub_task in task.sub_tasks:
+                output += f"<li>{sub_task.val['content']}</li>"
+            output += "</ul>"
+        output += "</li>"
+
+    output += "</ol></div>"
+    return output
 
 if __name__ == "__main__":
-    main()
+    simple_print()

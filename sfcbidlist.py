@@ -15,10 +15,6 @@ section_path = f"{path}sections"
 task_path = f"{path}tasks"
 api_header = {"Authorization": "Bearer %s" % API_KEY}
 
-def main():
-    sorted_list = bid_list()
-    json_list = tasksJSON(sorted_list)
-
 def bid_list():
     """
     Call Todoist API and return all task in the "Bids" section of "Schnabel" project
@@ -106,6 +102,3 @@ def quicksort(array):
         first_half = quicksort(array[:pivot_index])
         second_half = quicksort(array[pivot_index + 1:])
         return first_half + [array[pivot_index]] + second_half
-
-if __name__ == "__main__":
-    main()
